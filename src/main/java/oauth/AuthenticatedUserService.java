@@ -21,9 +21,24 @@ public class AuthenticatedUserService {
             authenticatedUser.setUserId(userId);
             authenticatedUser.setHash(hash);
 
-            System.out.println("lalala");
-
             session.persist(authenticatedUser);
+
+            transaction.commit();
+        }
+    }
+
+    public void deleteUserByHash(String hash) {
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+
+            AuthenticatedUser userToDelete = session.createQuery(
+                            "FROM oauth.AuthenticatedUser WHERE hash = :hash", AuthenticatedUser.class)
+                    .setParameter("hash", hash)
+                    .uniqueResult();
+
+            if (userToDelete != null) {
+                session.delete(userToDelete);
+            }
 
             transaction.commit();
         }

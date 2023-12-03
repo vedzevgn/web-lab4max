@@ -7,6 +7,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 import java.io.StringReader;
+import java.util.Objects;
 
 @Path("/oauth")
 public class UserResource {
@@ -19,12 +20,20 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response login(String jsonInput) {
         JsonObject jsonObject = Json.createReader(new StringReader(jsonInput)).readObject();
-        String username = jsonObject.getString("username");
-        String password = jsonObject.getString("password");
-        String hash = service.authenticateUser(username, password);
-        authenticatedUserService.addUser(service.findUserByUsername(username).getId(), service.hashPassword(username));
+        System.out.println(jsonObject);
+        if(!jsonObject.containsKey("signout")) {
+            System.out.println("true");
+            String username = jsonObject.getString("username");
+            String password = jsonObject.getString("password");
+            String hash = service.authenticateUser(username, password);
+            authenticatedUserService.addUser(service.findUserByUsername(username).getId(), service.hashPassword(username));
 
-        return Response.ok().entity("{\"hash\": \"" + hash + "\"}").type(MediaType.APPLICATION_JSON).build();
+            return Response.ok().entity("{\"hash\": \"" + hash + "\"}").type(MediaType.APPLICATION_JSON).build();
+        } else {
+            System.out.println("false");
+            authenticatedUserService.deleteUserByHash(jsonObject.getString("sessionKey"));
+            return Response.ok().entity("{\"success\": \"true\"}").type(MediaType.APPLICATION_JSON).build();
+        }
     }
 
     @POST
