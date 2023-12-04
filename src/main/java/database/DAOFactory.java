@@ -3,7 +3,8 @@ package database;
 import oauth.UserService;
 
 public class DAOFactory {
-    private static OauthDAO resultDAO;
+    private static OauthDAO oauthDAO;
+    private static CheckDAO checkDAO;
 
     private static DAOFactory instance;
 
@@ -13,9 +14,15 @@ public class DAOFactory {
         return instance;
     }
     
-    public OauthDAO getResultDAO() {
-        if (resultDAO == null)
-            resultDAO = new UserService();
-        return resultDAO;
+    public OauthDAO getOauthDAO() {
+        if (oauthDAO == null)
+            oauthDAO = new UserService();
+        return oauthDAO;
+    }
+
+    public CheckDAO getResultDAO() {
+        if (checkDAO == null)
+            checkDAO = new CheckService();
+        return checkDAO;
     }
 }

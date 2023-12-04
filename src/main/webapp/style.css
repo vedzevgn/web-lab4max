@@ -3,6 +3,11 @@ body {
     background-color: rgb(241, 241, 241);
 }
 
+#root{
+    width: 100%;
+    height: 100%;
+}
+
 a {
     text-decoration: none;
     color: black;
@@ -12,7 +17,7 @@ a {
     height: 70px;
     width: 70px;
     float: left;
-    background-image: url(client/icons/logo.png);
+    background-image: url(icons/logo.png);
     background-size: 50%;
     background-position: center;
     background-repeat: no-repeat;
@@ -193,6 +198,7 @@ table {
 
 .verticalBox h1 {
     margin-bottom: 0px;
+    margin-top: 0px;
 }
 
 th,
@@ -237,6 +243,7 @@ tbody {
 }
 
 .button {
+    height: fit-content;
     padding: 16px 22px;
     border-radius: 16px;
     background: white;
@@ -251,7 +258,6 @@ tbody {
     justify-content: center;
     align-items: center;
     flex-shrink: 0;
-
 }
 
 .verticalButton {
@@ -325,9 +331,11 @@ tbody {
     background-position: center;
 }
 
-.bigIcon{
-    height: 30px;
-    width: 30px;
+#loginIcon{
+    margin-left: 20px;
+    height: 28px;
+    width: 28px;
+    cursor: pointer;
 }
 
 .button input {
@@ -396,21 +404,13 @@ tbody {
     opacity: .9;
 }
 
-#loginWindow{
-    /*background-color: transparent;*/
-}
-
-#loginWindow .inputWrapper .textInput{
-    opacity: .9;
-}
-
 .closeButton {
     height: 30px;
     width: 30px;
     position: absolute;
     top: 30px;
     right: 30px;
-    background-image: url(client/icons/close.png);
+    background-image: url(icons/close.png);
     background-size: cover;
     cursor: pointer;
     z-index: 10;
@@ -445,6 +445,7 @@ label {
     font-family: 'Onest', sans-serif;
     margin: 0px;
     font-size: 18px;
+    font-weight: 300;
 }
 
 label {
@@ -454,6 +455,7 @@ label {
 h1 {
     font-family: 'Onest', sans-serif;
     font-size: 32px;
+    font-weight: 500;
 }
 
 .hint {
@@ -466,7 +468,7 @@ h1 {
 .subtitle {
     font-size: 30px;
     margin-bottom: 4px;
-    font-weight: 800;
+    font-weight: 500;
 }
 
 input {
@@ -492,6 +494,8 @@ input {
     width: max-content;
     height: fit-content;
     justify-content: center;
+    align-items: flex-start;
+    flex-direction: column-reverse;
 }
 
 .centered .button {
@@ -949,8 +953,8 @@ input:checked + .slider:before {
     position: absolute;
     transform: translate(25%, 25%) scale(0.5);
     padding: 16px;
-    height: 312px;
-    width: 312px;
+    height: 332px;
+    width: 332px;
     border-radius: 40px;
     align-items: center;
     justify-content: center;
@@ -982,7 +986,7 @@ input:checked + .slider:before {
     margin: auto;
     position: absolute;
     z-index: 10;
-    background-image: url(client/icons/clockDot.png);
+    background-image: url(icons/clockDot.png);
     background-position: center;
     background-size: cover;
 }
@@ -1025,7 +1029,7 @@ input:checked + .slider:before {
     transform-origin: calc(50% - 0px) 141px;
 }
 
-span:not(p span) {
+span {
     display: inline-block;
     position: absolute;
     color: black;

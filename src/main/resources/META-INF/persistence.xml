@@ -8,6 +8,7 @@
 
         <class>oauth.User</class>
         <class>oauth.AuthenticatedUser</class>
+        <class>results.CheckArea</class>
 
         <properties>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/web"/>

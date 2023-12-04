@@ -1,42 +1,26 @@
-package model;
+package results;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Named;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-@Named
 @Entity
 @Table(name = "results")
 @ApplicationScoped
-public class CheckAreaBean implements Serializable {
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class CheckArea implements Serializable {
     private long id;
-
-    @Column(name = "x")
+    private String user_hash;
     private double x;
-
-    @Column(name = "y")
     private double y;
-
-    @Column(name = "r")
     private double r;
-
-    @Column(name = "result")
     private boolean result;
-
-    @Column(name = "executed_at")
     private LocalDateTime executedAt;
-
-    @Column(name = "exec_time")
     private long execTime;
 
-    public CheckAreaBean() {
+    public CheckArea() {
         super();
     }
 
@@ -88,6 +72,14 @@ public class CheckAreaBean implements Serializable {
         this.execTime = execTime;
     }
 
+    @Column(name = "user_hash")
+    public String getUser_hash() {
+        return user_hash;
+    }
+    public void setUser_hash(String userHash) {
+        this.user_hash = userHash;
+    }
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -99,11 +91,12 @@ public class CheckAreaBean implements Serializable {
     }
 
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof CheckAreaBean)) return false;
-        CheckAreaBean bean = (CheckAreaBean) o;
+        if (!(o instanceof CheckArea)) return false;
+        CheckArea bean = (CheckArea) o;
         return getId() == bean.getId() && Double.compare(getX(), bean.getX()) == 0 && Double.compare(getY(), bean.getY()) == 0 && Double.compare(getR(), bean.getR()) == 0 && isResult() == bean.isResult() && getExecTime() == bean.getExecTime() && Objects.equals(getExecutedAt(), bean.getExecutedAt());
     }
 

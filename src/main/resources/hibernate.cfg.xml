@@ -13,6 +13,7 @@
 
         <mapping class="oauth.User"/>
         <mapping class="oauth.AuthenticatedUser"/>
+        <mapping class="results.CheckArea"/>
 
     </session-factory>
 </hibernate-configuration>

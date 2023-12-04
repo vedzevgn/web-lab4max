@@ -1,6 +1,7 @@
 package oauth;
 
 import database.HibernateUtils;
+import jakarta.persistence.TypedQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -31,18 +32,20 @@ public class AuthenticatedUserService {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
 
-            AuthenticatedUser userToDelete = session.createQuery(
+            TypedQuery<AuthenticatedUser> query = session.createQuery(
                             "FROM oauth.AuthenticatedUser WHERE hash = :hash", AuthenticatedUser.class)
-                    .setParameter("hash", hash)
-                    .uniqueResult();
+                    .setParameter("hash", hash);
 
-            if (userToDelete != null) {
-                session.delete(userToDelete);
+            List<AuthenticatedUser> usersToDelete = query.getResultList();
+
+            for (AuthenticatedUser user : usersToDelete) {
+                session.delete(user);
             }
 
             transaction.commit();
         }
     }
+
 
     public List<AuthenticatedUser> getAuthenticatedUsers() {
         try (Session session = sessionFactory.openSession()) {
