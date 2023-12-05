@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Objects;
 
 import static results.AreaResultChecker.checkArea;
 import static results.AreaResultChecker.validateXYR;
@@ -81,35 +82,40 @@ public class CheckResource {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
-        if (!validateXYR(dx, dy, dr)) {
-            return Response.status(Response.Status.BAD_REQUEST).entity("{\"error\": \"Некорректный запрос\"}").build();
+        if(!Objects.equals(hash, "0")) {
+
+            if (!validateXYR(dx, dy, dr)) {
+                return Response.status(Response.Status.BAD_REQUEST).entity("{\"error\": \"Некорректный запрос\"}").build();
+            }
+
+            final long startExec = System.nanoTime();
+
+            CheckAreaResults results = new CheckAreaResults(hash);
+            results.newResult(dx, dy, dr, hash);
+
+            LinkedList<CheckArea> checkAreas = results.getResults();
+
+            final long endExec = System.nanoTime();
+            final long executionTime = (endExec - startExec);
+
+            JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
+
+            for (CheckArea checkArea : checkAreas) {
+                JsonObjectBuilder resultJson = Json.createObjectBuilder()
+                        .add("x", checkArea.getX())
+                        .add("y", checkArea.getY())
+                        .add("r", checkArea.getR())
+                        .add("result", checkArea.isResult())
+                        .add("calculationTime", executionTime)
+                        .add("time", checkArea.getExecutedAt().toString());
+
+                jsonArrayBuilder.add(resultJson);
+            }
+
+            return Response.ok().entity(jsonArrayBuilder.build().toString()).type(MediaType.APPLICATION_JSON).build();
+        } else {
+            return Response.status(Response.Status.BAD_REQUEST).build();
         }
-
-        final long startExec = System.nanoTime();
-
-        CheckAreaResults results = new CheckAreaResults(hash);
-        results.newResult(dx, dy, dr, hash);
-
-        LinkedList<CheckArea> checkAreas = results.getResults();
-
-        final long endExec = System.nanoTime();
-        final long executionTime = (endExec - startExec);
-
-        JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
-
-        for (CheckArea checkArea : checkAreas) {
-            JsonObjectBuilder resultJson = Json.createObjectBuilder()
-                    .add("x", checkArea.getX())
-                    .add("y", checkArea.getY())
-                    .add("r", checkArea.getR())
-                    .add("result", checkArea.isResult())
-                    .add("calculationTime", executionTime)
-                    .add("time", checkArea.getExecutedAt().toString());
-
-            jsonArrayBuilder.add(resultJson);
-        }
-
-        return Response.ok().entity(jsonArrayBuilder.build().toString()).type(MediaType.APPLICATION_JSON).build();
     }
 
 

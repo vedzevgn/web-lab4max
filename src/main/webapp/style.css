@@ -17,17 +17,7 @@ a {
     height: 70px;
     width: 70px;
     float: left;
-    background-image: url(icons/logo.png);
-    background-size: 50%;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-#vedzLogo {
-    height: 70px;
-    width: 70px;
-    float: left;
-    background-image: url(icons/vedzLogo.png);
+    background-image: url(client/public/icons/logo.png);
     background-size: 50%;
     background-position: center;
     background-repeat: no-repeat;
@@ -410,7 +400,7 @@ tbody {
     position: absolute;
     top: 30px;
     right: 30px;
-    background-image: url(icons/close.png);
+    background-image: url(client/public/icons/close.png);
     background-size: cover;
     cursor: pointer;
     z-index: 10;
@@ -763,6 +753,18 @@ input {
     opacity: 0;
 }
 
+#areasBack{
+    height: 400px;
+    width: 400px;
+    position: absolute;
+    top: 60px;
+    left: 20px;
+    background-image: url("/client/public/images/areas.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
 .modalInput{
     position: absolute;
     bottom: 30px;
@@ -986,7 +988,7 @@ input:checked + .slider:before {
     margin: auto;
     position: absolute;
     z-index: 10;
-    background-image: url(icons/clockDot.png);
+    background-image: url(client/public/icons/clockDot.png);
     background-position: center;
     background-size: cover;
 }
@@ -1222,6 +1224,18 @@ body .ui-slider.ui-slider-horizontal .ui-slider-handle.ui-state-hover {
 
     #areasWindowButton {
         margin-bottom: 20px;
+    }
+
+    #areasBack{
+        height: 400px;
+        width: 400px;
+        position: absolute;
+        top: 60px;
+        left: 20px;
+        background-image: url("/client/public/images/areas.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
     }
 
     .tableWrapper {

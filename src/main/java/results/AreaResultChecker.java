@@ -2,13 +2,13 @@ package results;
 
 public class AreaResultChecker {
     private static boolean checkInCircle(final double x, final double y, final double r){
-        return x > 0 && y > 0 && Math.sqrt(x * x + y * y) <= r;
+        return x > 0 && y > 0 && Math.sqrt(x * x + y * y) <= r/2;
     }
 
     public static boolean checkArea(final double x, final double y, final double r) {
         boolean inCircle = checkInCircle(x, y, r);
-        boolean inTriangle = (x >= 0 && y <= 0 && Math.abs(x) + Math.abs(y) <= r/2);
-        boolean inArea = (x <= 0 && x >= -r && y <= 0 && y >= -r/2);
+        boolean inTriangle = (x <= 0 && y >= 0 && Math.abs(x) + Math.abs(y) <= r/2);
+        boolean inArea = (x <= 0 && x >= -r && y <= 0 && y >= -r);
         return inCircle || inTriangle || inArea;
     }
 
